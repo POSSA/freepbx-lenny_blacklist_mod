@@ -24,37 +24,31 @@ if($amp_conf["AMPDBENGINE"] != "mysql")  {
 //  Could be used to throw a warning on install
 	}
 
+// maybe not elegant but purging table from any previous install
+$sql = "DROP TABLE IF EXISTS lenny";
+$check = $db->query($sql);
+if (DB::IsError($check))
+{
+	die_freepbx( "Can not delete table: " . $check->getMessage() .  "\n");
+}
 
-//  boilerplate for defining a new feature code
-$fcc = new featurecode('<<module>>', '<<featurecode_name>>');
-$fcc->setDescription('Type description');
-$fcc->setDefault('<<featurecode digits>>');
-$fcc->setProvideDest();
-$fcc->update();
-unset($fcc);
 
-// boilerplate for creating a table
-$sql = "CREATE TABLE IF NOT EXISTS <<tablename>> (
-	<<column1>> INTEGER NOT NULL PRIMARY KEY $autoincrement,
-	<<column2>> NOT NULL,
-	
+// create a new table
+$sql = "CREATE TABLE IF NOT EXISTS lenny (
+	id INTEGER NOT NULL PRIMARY KEY $autoincrement,
+	enable VARCHAR(10) NOT NULL,
+	record VARCHAR(10) NOT NULL,
+	destination VARCHAR(100) NOT NULL	
 );";
 $check = $db->query($sql);
 if (DB::IsError($check)) {
-        die_freepbx( "Can not create <<tablename>>` table: " . $check->getMessage() .  "\n");
+        die_freepbx( "Can not create table: " . $check->getMessage() .  "\n");
 }
 
-// boilerplate to add a column to a table
-$sql = "SELECT <<column3>> FROM <<tablename>>";
-$check = $db->getRow($sql, DB_FETCHMODE_ASSOC);  //$check will error is the query is invalid
+// populate new table with default values
+$sql = "INSERT INTO lenny (id, enable, record, destination) VALUES (1 , 'CHECKED',  'CHECKED', 'lenny@itslenny.com')";
+$check = $db->query($sql);
 if (DB::IsError($check)) {
-	// add new field
-	$sql = "ALTER TABLE <<tablename>> ADD <<column3>> INTEGER NOT NULL DEFAULT 0;";
-	$result = $db->query($sql);
-	if(DB::IsError($result)) {
-		die_freepbx($result->getMessage());
-	}
+        die_freepbx( "Can not insert default values: " . $check->getMessage() .  "\n");
 }
-
-
 ?>

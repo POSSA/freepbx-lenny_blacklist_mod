@@ -29,10 +29,10 @@ function lenny_config() {
 function lenny_edit($id,$post){
 	global $db;
 
-	$id = 1;
+	
 	$var1 = $db->escapeSimple($post['enable']);
 	$var2 = $db->escapeSimple($post['record']);
-	$var2 = $db->escapeSimple($post['destination']);
+	$var3 = $db->escapeSimple($post['destination']);
 
 
 	$results = sql("
@@ -40,7 +40,7 @@ function lenny_edit($id,$post){
 		SET 
 			enable = '$var1', 
 			record = '$var2', 
-			destination = `$var3',
+			destination = '$var3'
 		WHERE id = '$id'");
 }
 
@@ -55,13 +55,13 @@ function lenny_hookGet_config($engine) {
 			$context = "app-blacklist-check";
 			$exten = "s";
 
-			if ($config[0]['enable']=='true' && $config[0]['record']=='true')
+			if ($config[0]['enable']=='CHECKED' && $config[0]['record']=='CHECKED')
 			{
 				$ext->splice($context, $exten, 4, new ext_gosub('1', 's', 'sub-record-check', 'rg,s,always'));
 				$ext->splice($context, $exten, 5, new ext_dial($config[0]['destination'],'60,rL,240000'));
 				$ext->splice($context, $exten, 6, new ext_hangup);
 			}
-			else if ($config[0]['enable']=='true')
+			else if ($config[0]['enable']=='CHECKED')
 			{
 				$ext->splice($context, $exten, 4, new ext_dial($config[0]['destination'],'60,rL,240000'));
 				$ext->splice($context, $exten, 5, new ext_hangup);
@@ -69,6 +69,21 @@ function lenny_hookGet_config($engine) {
 			
 		break;
 	}
+}
+
+// this function will not work with blacklist versions 2.10 or less because the blacklist module does not accept html hooks
+// keeping it here in case it can ever be used in the future
+function lenny_hook_blacklist() {
+	$html = '';
+	$html = '<tr><td colspan="2"><h5>';
+	$html .= _("Send to blacklisted calls to Lenny");
+	$html .= '<hr></h5>';
+	$html .= '<a href="#" class="info">';
+	$html .= _("Have blacklisted calls sent to lenny@itslenny.com").'<span>'._("Configure Lenny via the Lenny Blacklist Mod config page").'.</span></a>';
+	$html .= '<script type="text/javascript">';
+	$html .= '</td></tr>';
+	
+	return $html;
 }
 
 function lenny_vercheck() {

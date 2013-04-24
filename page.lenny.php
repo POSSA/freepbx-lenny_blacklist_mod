@@ -30,27 +30,49 @@ isset($_REQUEST['action'])?$action = $_REQUEST['action']:$action='';
 
 
 //if submitting form, update database
-if(isset($_POST['action'])) {
-	switch ($action) {
-		case "submit":
-			lenny_edit($_POST);
-			needreload();
-			redirect_standard();
-		break;
+if(isset($_POST['submit'])) {
+		lenny_edit(1,$_POST);
+		needreload();
+		redirect_standard();
+	
 	}
-}
+
 
 //  to add right navigation menu enclose output in <div class="rnav"> </div>
-echo '<div class="rnav">';
+/* echo '<div class="rnav">';
 echo "menu items";
 echo '</div>';
-
-echo "Lenny Blacklist Mod<p>";
-echo "Redirect all blacklisted calls to the SIP URI lenny@itslenny.com<p>";
-echo "this page will be a placeholder until I figure out html hooks for the blacklist page";
+*/
 $config = lenny_config();
 
-
-
 ?>
+
+<h2>Lenny Blacklist Mod</h2>
+
+<form autocomplete="off" name="edit" action="<?php $_SERVER['PHP_SELF'] ?>" method="post" >
+<table>
+		<tr>			
+			<td colspan="2">			
+			    <?php echo _('This module is used to modify the FreePBX blacklist module sot that blacklisted callers are automatically redirected to lenny@itslenny.com or another user specified destination.'); ?>
+			</td>			
+		</tr>
+	<tr><td colspan="2"><h5>Module Config<hr></h5></td></tr>
+
+	<tr>
+		<td><a href="#" class="info"><?php echo _("Enable redirect"); ?><span><?php echo _("If this is disabled, the blacklist reverts to default behavior"); ?></span></a></td>
+		<td><input type="checkbox" name="enable" value="CHECKED" <?php echo $config[0]['enable'] ?>   ></td>
+	</tr>
+	<tr>
+		<td><a href="#" class="info"><?php echo _("Enable Recording"); ?><span><?php echo sprintf(_("If enabled, the call is recorded locally"),$hangup_code); ?></span></a></td>
+		<td><input type="checkbox" name="record" value="CHECKED" <?php echo $config[0]['record'] ?>   ></td>
+	</tr>
+	<tr>
+		<td><a href="#" class="info"><?php echo _("Destination")?><span><?php echo _("SIP/URI destination to send blacklisted caller")?></span></a></td>
+		<td><input type="text" name="destination" value="<?php echo htmlspecialchars(isset($config[0]['destination']) ? $config[0]['destination'] : ''); ?>" ></td>
+	</tr>
+	<tr>
+		<td colspan="2"><br><h6><input name="submit" type="submit" value="<?php echo _("Submit Changes")?>" ></h6></td>
+	</tr>
+</table>
+</form>
 
