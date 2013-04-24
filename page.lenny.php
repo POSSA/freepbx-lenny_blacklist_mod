@@ -21,9 +21,9 @@ $cm =& cronmanager::create($db);
 $online_updates = $cm->updates_enabled() ? true : false;
 
 // check dev site to see if new version of module is available
-if ($online_updates && $foo = lenny_vercheck()) {
-	print "<br>A <b>new version of this module is available</b> from the <a target='_blank' href='http://pbxossa.org'>PBX Open Source Software Alliance</a><br>";
-	}
+// if ($online_updates && $foo = lenny_vercheck()) {
+//	print "<br>A <b>new version of this module is available</b> from the <a target='_blank' href='http://pbxossa.org'>PBX Open Source Software Alliance</a><br>";
+//	}
 
 // check form and define var for form action
 isset($_REQUEST['action'])?$action = $_REQUEST['action']:$action='';
@@ -67,8 +67,8 @@ $config = lenny_config();
 		<td><input type="checkbox" name="record" value="CHECKED" <?php echo $config[0]['record'] ?>   ></td>
 	</tr>
 	<tr>
-		<td><a href="#" class="info"><?php echo _("Destination")?><span><?php echo _("SIP/URI destination to send blacklisted caller")?></span></a></td>
-		<td><input type="text" name="destination" value="<?php echo htmlspecialchars(isset($config[0]['destination']) ? $config[0]['destination'] : ''); ?>" ></td>
+		<td><a href="#" class="info"><?php echo _("Destination")?><span><?php echo _("SIP/URI destination to send blacklisted caller in the format SIP/xxx@domain.com")?></span></a></td>
+		<td><input type="text" name="destination" size=40 value="<?php echo htmlspecialchars(isset($config[0]['destination']) ? $config[0]['destination'] : ''); ?>" ></td>
 	</tr>
 	<tr>
 		<td colspan="2"><br><h6><input name="submit" type="submit" value="<?php echo _("Submit Changes")?>" ></h6></td>
