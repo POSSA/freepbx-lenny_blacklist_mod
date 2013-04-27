@@ -1,7 +1,7 @@
 <module>
 	<rawname>lenny</rawname>
 	<name>Lenny Blacklist Mod</name>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 	<publisher>POSSA</publisher>
 	<license>GPLv2+</license>
 	<category>Other</category>
@@ -11,9 +11,10 @@
 	<changelog>
 		*0.0.1*  First release
 		*0.0.2*  minor bug fixes
+		*0.0.3*  Added core 2.10 dependency
 	</changelog>
 	<depends>
-		<version>ge 2.9</version>
+		<version>ge 2.10</version>
 		<module>blacklist</module>
 	</depends>
 </module>
