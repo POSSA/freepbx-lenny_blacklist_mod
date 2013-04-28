@@ -21,9 +21,9 @@ $cm =& cronmanager::create($db);
 $online_updates = $cm->updates_enabled() ? true : false;
 
 // check dev site to see if new version of module is available
-// if ($online_updates && $foo = lenny_vercheck()) {
-//	print "<br>A <b>new version of this module is available</b> from the <a target='_blank' href='http://pbxossa.org'>PBX Open Source Software Alliance</a><br>";
-//	}
+if ($online_updates && $foo = lenny_vercheck()) {
+	print "<br>A <b>new version of this module is available</b> from the <a target='_blank' href='http://pbxossa.org'>PBX Open Source Software Alliance</a><br>";
+}
 
 // check form and define var for form action
 isset($_REQUEST['action'])?$action = $_REQUEST['action']:$action='';

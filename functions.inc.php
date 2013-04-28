@@ -90,7 +90,7 @@ function lenny_vercheck() {
 	$newver = false;
 	if ( function_exists(lenny_xml2array)){
 		$module_local = lenny_xml2array("modules/lenny/module.xml");
-		$module_remote = lenny_xml2array("https://raw.github.com/POSSA/Hotel-Style-Wakeup-Calls/master/module.xml");
+		$module_remote = lenny_xml2array("https://raw.github.com/POSSA/freepbx-lenny_blacklist_mod/master/module.xml");
 		if ( $module_remote[module][version] > $module_local[module][version])
 			{
 			$newver = true;
