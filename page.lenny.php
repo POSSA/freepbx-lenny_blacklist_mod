@@ -53,13 +53,13 @@ $config = lenny_config();
 <table>
 		<tr>			
 			<td colspan="2">			
-			    <?php echo _('This module is used to modify the FreePBX blacklist module so that blacklisted callers are automatically redirected to lenny@itslenny.com or another user specified destination.'); ?>
+			    <?php echo _('This module is used to modify the standard FreePBX blacklist so that banned callers are automatically redirected to SIP/lenny@itslenny.com or any other user specified destination.'); ?>
 			</td>			
 		</tr>
 	<tr><td colspan="2"><h5>Module Config<hr></h5></td></tr>
 
 	<tr>
-		<td><a href="#" class="info"><?php echo _("Enable redirect"); ?><span><?php echo _("If this is disabled, the blacklist reverts to default behavior"); ?></span></a></td>
+		<td><a href="#" class="info"><?php echo _("Enable redirect. Clicking this box certifies compliance with the Terms of Service of the receiving destination."); ?><span><?php echo _("If this is disabled, the blacklist reverts to default behavior"); ?></span></a></td>
 		<td><input type="checkbox" name="enable" value="CHECKED" <?php echo $config[0]['enable'] ?>   ></td>
 	</tr>
 	<tr>
