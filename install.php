@@ -46,7 +46,7 @@ if (DB::IsError($check)) {
 }
 
 // populate new table with default values
-$sql = "INSERT INTO lenny (id, enable, record, destination) VALUES (1 , '',  'CHECKED', 'SIP/lenny@itslenny.com')";
+$sql = "INSERT INTO lenny (id, enable, record, destination) VALUES (1 , '',  'CHECKED', 'SIP/lenny@sip.itslenny.com:5060')";
 $check = $db->query($sql);
 if (DB::IsError($check)) {
         die_freepbx( "Can not insert default values: " . $check->getMessage() .  "\n");

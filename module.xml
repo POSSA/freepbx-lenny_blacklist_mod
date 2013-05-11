@@ -1,7 +1,7 @@
 <module>
 	<rawname>lenny</rawname>
 	<name>Lenny Blacklist Mod</name>
-	<version>0.0.4</version>
+	<version>0.0.5</version>
 	<publisher>POSSA</publisher>
 	<license>GPLv2+</license>
 	<category>Other</category>
@@ -9,6 +9,7 @@
 		<lenny>Lenny Blacklist Mod</lenny>
 	</menuitems>
 	<changelog>
+		*0.0.5*  Updated to use html hook in Blacklist module
 		*0.0.4*  Typos and note about respecing TOS
 		*0.0.3*  Added core 2.10 dependency
 		*0.0.2*  minor bug fixes

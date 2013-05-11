@@ -28,11 +28,10 @@ if ($online_updates && $foo = lenny_vercheck()) {
 // check form and define var for form action
 isset($_REQUEST['action'])?$action = $_REQUEST['action']:$action='';
 
-
 //if submitting form, update database
 if(isset($_POST['submit'])) {
 		lenny_edit(1,$_POST);
-		needreload();
+//		needreload();
 		redirect_standard();
 	
 	}
@@ -53,23 +52,14 @@ $config = lenny_config();
 <table>
 		<tr>			
 			<td colspan="2">			
-			    <?php echo _('This module is used to modify the standard FreePBX blacklist so that banned callers are automatically redirected to SIP/lenny@itslenny.com or any other user specified destination.'); ?>
+			    <?php echo _('This module is used to modify the standard FreePBX blacklist so that banned callers are automatically redirected to SIP/lenny@sip.itslenny.com:5060 or any other user specified destination.'); ?>
 			</td>			
 		</tr>
-	<tr><td colspan="2"><h5>Module Config<hr></h5></td></tr>
-
-	<tr>
-		<td><a href="#" class="info"><?php echo _("Enable redirect. Clicking this box certifies compliance with the Terms of Service of the receiving destination."); ?><span><?php echo _("If this is disabled, the blacklist reverts to default behavior"); ?></span></a></td>
-		<td><input type="checkbox" name="enable" value="CHECKED" <?php echo $config[0]['enable'] ?>   ></td>
-	</tr>
-	<tr>
-		<td><a href="#" class="info"><?php echo _("Enable Recording"); ?><span><?php echo sprintf(_("If enabled, the call is recorded locally"),$hangup_code); ?></span></a></td>
-		<td><input type="checkbox" name="record" value="CHECKED" <?php echo $config[0]['record'] ?>   ></td>
-	</tr>
-	<tr>
-		<td><a href="#" class="info"><?php echo _("Destination")?><span><?php echo _("SIP/URI destination to send blacklisted caller in the format SIP/xxx@domain.com")?></span></a></td>
-		<td><input type="text" name="destination" size=40 value="<?php echo htmlspecialchars(isset($config[0]['destination']) ? $config[0]['destination'] : ''); ?>" ></td>
-	</tr>
+</table>
+<?php
+echo $foo=lenny_hook_blacklist();
+?>
+<table>
 	<tr>
 		<td colspan="2"><br><h6><input name="submit" type="submit" value="<?php echo _("Submit Changes")?>" ></h6></td>
 	</tr>
