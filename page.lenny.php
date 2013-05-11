@@ -28,11 +28,10 @@ if ($online_updates && $foo = lenny_vercheck()) {
 // check form and define var for form action
 isset($_REQUEST['action'])?$action = $_REQUEST['action']:$action='';
 
-
 //if submitting form, update database
 if(isset($_POST['submit'])) {
 		lenny_edit(1,$_POST);
-		needreload();
+//		needreload();
 		redirect_standard();
 	
 	}
@@ -59,7 +58,7 @@ $config = lenny_config();
 	<tr><td colspan="2"><h5>Module Config<hr></h5></td></tr>
 
 	<tr>
-		<td><a href="#" class="info"><?php echo _("Enable redirect. Clicking this box certifies compliance with the Terms of Service of the receiving destination."); ?><span><?php echo _("If this is disabled, the blacklist reverts to default behavior"); ?></span></a></td>
+		<td><a href="#" class="info"><?php echo _("Enable redirect"); ?><span><?php echo _("If this is disabled, the blacklist reverts to default behavior. Clicking this box certifies compliance with the Terms of Service of the receiving destination."); ?></span></a></td>
 		<td><input type="checkbox" name="enable" value="CHECKED" <?php echo $config[0]['enable'] ?>   ></td>
 	</tr>
 	<tr>

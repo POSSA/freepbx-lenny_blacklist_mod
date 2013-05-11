@@ -29,11 +29,16 @@ function lenny_config() {
 function lenny_edit($id,$post){
 	global $db;
 
-	
 	$var1 = $db->escapeSimple($post['enable']);
 	$var2 = $db->escapeSimple($post['record']);
 	$var3 = $db->escapeSimple($post['destination']);
 
+	$foo = lenny_config();
+	
+	// only trigger a reload if any changes are made that require a reload
+	if ($foo[0]['enable']!=$var1 || $foo[0]['record']!=$var2 || $foo[0]['destination']!=$var3) {
+		needreload();
+	}
 
 	$results = sql("
 		UPDATE lenny 
@@ -71,35 +76,35 @@ function lenny_hookGet_config($engine) {
 	}
 }
 
-// this function will not work with blacklist versions 2.10 or less because the blacklist module does not accept html hooks
-// keeping it here in case it can ever be used in the future
 function lenny_hook_blacklist() {
-$html = "<table><tr><td colspan='2'>";
-$html .= "<?php $lenconfig = lenny_config() ?>";
-$html .= "This module is used to modify the FreePBX blacklist module sot that blacklisted callers are automatically redirected to lenny@itslenny.com or another user specified destination.";
-$html .= "</td></tr>";
-$html .= "<tr><td colspan='2'><h5>Module Config<hr></h5></td></tr>";
-$html .= "<tr>";
-$html .= "<td><a href='#' class='info'>Enable redirect<span>If this is disabled, the blacklist reverts to default behavior</span></a></td>";
-$html .= "<td><input type='checkbox' name='enable' value='CHECKED' ".$lenconfig[0]['enable']."></td>";
-$html .= "</tr><tr>";
-$html .= "<td><a href='#' class='info'>Enable Recording<span>". sprintf(_('If enabled, the call is recorded locally'),$hangup_code)."</span></a></td>";
-$html .= "<td><input type='checkbox' name='record' value='CHECKED' ".$lenconfig[0]['record']."></td>";
-$html .= "</tr><tr>";
-$html .= "<td><a href='#' class='info'>Destination<span>SIP/URI destination to send blacklisted caller in the format SIP/xxx@domain.com</span></a></td>";
-$html .= "<td><input type='text' name='destination' size=40 value='".htmlspecialchars(isset($lenconfig[0]['destination']) ? $lenconfig[0]['destination'] : '')."' ></td>";
-//$html .= "</tr><tr><td colspan='2'><br><h5>Destination:<hr></h5></td></tr>";
-//$html .= "<tr><td colspan='2'><br><h6><input name='submit' type='submit' value='Submit Changes'></h6></td>";
-$html .= "</tr></table>";
-	
-	return $html;
-}
+        $lenconfig = lenny_config();
 
+        //if submitting form, update database
+        if(isset($_POST['submit'])) {
+                lenny_edit(1,$_POST);
+        }
+        $html = "<table>";
+        $html .= "<tr><td colspan='2'><h5><a href='#' class='info'>Lenny Module Config<span>This is used to modify the FreePBX blacklist module so that blacklisted callers are automatically redirected to lenny@sip.itslenny.com or another user specified destination.</span></a><hr></h5></td></tr>";
+        $html .= "<tr>";
+        $html .= "<td><a href='#' class='info'>Enable redirect<span>If this is disabled, the blacklist reverts to default behavior. Clicking this box certifies compliance with the Terms of Service of the receiving destination.</span></a></td>";
+        $html .= "<td><input type='checkbox' name='enable' value='CHECKED' ".$lenconfig[0]['enable']."></td>";
+        $html .= "</tr><tr>";
+        $html .= "<td><a href='#' class='info'>Enable Recording<span>If enabled, the call is recorded locally</span></a></td>";
+        $html .= "<td><input type='checkbox' name='record' value='CHECKED' ".$lenconfig[0]['record']."></td>";
+        $html .= "</tr><tr>";
+        $html .= "<td><a href='#' class='info'>Destination<span>SIP/URI destination to send blacklisted caller in the format SIP/xxx@domain.com</span></a></td>";
+        $html .= "<td><input type='text' name='destination' size=40 value='".htmlspecialchars(isset($lenconfig[0]['destination']) ? $lenconfig[0]['destination'] : '')."' ></td>";
+        $html .= "</tr></table>";
+
+        return $html;
+}
+		
 function lenny_vercheck() {
 	$newver = false;
 	if ( function_exists(lenny_xml2array)){
 		$module_local = lenny_xml2array("modules/lenny/module.xml");
 		$module_remote = lenny_xml2array("https://raw.github.com/POSSA/freepbx-lenny_blacklist_mod/master/module.xml");
+		
 		if ( $module_remote[module][version] > $module_local[module][version])
 			{
 			$newver = true;
