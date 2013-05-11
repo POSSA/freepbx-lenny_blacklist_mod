@@ -84,7 +84,7 @@ function lenny_hook_blacklist() {
                 lenny_edit(1,$_POST);
         }
         $html = "<table>";
-        $html .= "<tr><td colspan='2'><h5><a href='#' class='info'>Lenny Module Config<span>This is used to modify the FreePBX blacklist module so that blacklisted callers are automatically redirected to lenny@sip.itslenny.com or another user specified destination.</span></a><hr></h5></td></tr>";
+        $html .= "<tr><td colspan='2'><h5><a href='#' class='info'>Lenny Module Config<span>This is used to modify the FreePBX blacklist module so that blacklisted callers are automatically redirected to SIP/lenny@sip.itslenny.com:5060 or another user specified destination.</span></a><hr></h5></td></tr>";
         $html .= "<tr>";
         $html .= "<td><a href='#' class='info'>Enable redirect<span>If this is disabled, the blacklist reverts to default behavior. Clicking this box certifies compliance with the Terms of Service of the receiving destination.</span></a></td>";
         $html .= "<td><input type='checkbox' name='enable' value='CHECKED' ".$lenconfig[0]['enable']."></td>";
@@ -92,7 +92,7 @@ function lenny_hook_blacklist() {
         $html .= "<td><a href='#' class='info'>Enable Recording<span>If enabled, the call is recorded locally</span></a></td>";
         $html .= "<td><input type='checkbox' name='record' value='CHECKED' ".$lenconfig[0]['record']."></td>";
         $html .= "</tr><tr>";
-        $html .= "<td><a href='#' class='info'>Destination<span>SIP/URI destination to send blacklisted caller in the format SIP/xxx@domain.com</span></a></td>";
+        $html .= "<td><a href='#' class='info'>Destination<span>SIP/URI destination to send blacklisted caller in the format SIP/xxx@domain.com:port</span></a></td>";
         $html .= "<td><input type='text' name='destination' size=40 value='".htmlspecialchars(isset($lenconfig[0]['destination']) ? $lenconfig[0]['destination'] : '')."' ></td>";
         $html .= "</tr></table>";
 

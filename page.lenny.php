@@ -52,7 +52,7 @@ $config = lenny_config();
 <table>
 		<tr>			
 			<td colspan="2">			
-			    <?php echo _('This module is used to modify the standard FreePBX blacklist so that banned callers are automatically redirected to SIP/lenny@itslenny.com or any other user specified destination.'); ?>
+			    <?php echo _('This module is used to modify the standard FreePBX blacklist so that banned callers are automatically redirected to SIP/lenny@sip.itslenny.com:5060 or any other user specified destination.'); ?>
 			</td>			
 		</tr>
 	<tr><td colspan="2"><h5>Module Config<hr></h5></td></tr>
@@ -66,7 +66,7 @@ $config = lenny_config();
 		<td><input type="checkbox" name="record" value="CHECKED" <?php echo $config[0]['record'] ?>   ></td>
 	</tr>
 	<tr>
-		<td><a href="#" class="info"><?php echo _("Destination")?><span><?php echo _("SIP/URI destination to send blacklisted caller in the format SIP/xxx@domain.com")?></span></a></td>
+		<td><a href="#" class="info"><?php echo _("Destination")?><span><?php echo _("SIP/URI destination to send blacklisted caller in the format SIP/xxx@domain.com:port")?></span></a></td>
 		<td><input type="text" name="destination" size=40 value="<?php echo htmlspecialchars(isset($config[0]['destination']) ? $config[0]['destination'] : ''); ?>" ></td>
 	</tr>
 	<tr>
