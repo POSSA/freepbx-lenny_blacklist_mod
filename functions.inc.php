@@ -84,7 +84,7 @@ function lenny_hook_blacklist() {
                 lenny_edit(1,$_POST);
         }
         $html = "<table>";
-        $html .= "<tr><td colspan='2'><h5><a href='#' class='info'>Lenny Module Config<span>This is used to modify the FreePBX blacklist module so that blacklisted callers are automatically redirected to SIP/lenny@sip.itslenny.com:5060 or another user specified destination.</span></a><hr></h5></td></tr>";
+        $html .= "<tr><td colspan='2'><h5><a href='#' class='info'>Lenny Blacklist Mod Config<span>This is used to modify the FreePBX blacklist module so that blacklisted callers are automatically redirected to SIP/lenny@sip.itslenny.com:5060 or another user specified destination.</span></a><hr></h5></td></tr>";
         $html .= "<tr>";
         $html .= "<td><a href='#' class='info'>Enable redirect<span>If this is disabled, the blacklist reverts to default behavior. Clicking this box certifies compliance with the Terms of Service of the receiving destination.</span></a></td>";
         $html .= "<td><input type='checkbox' name='enable' value='CHECKED' ".$lenconfig[0]['enable']."></td>";
