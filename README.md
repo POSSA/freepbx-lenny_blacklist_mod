@@ -1,4 +1,4 @@
-freepbx-lenny_blacklist_mod
+FreePBX Lenny Blacklist Mod
 ===========================
 
 Modifies the FreePBX blacklist to redirect banned callers to SIP/lenny@sip.itslenny.com or to any other user specifed SIP URI.
@@ -13,6 +13,8 @@ appears in the list of local modules.
 Usage:
 ======
 Under the "Other" tab (or directly on the Blacklist page with later versions of FreePBX), a new entry for Lenny Blacklist Mod 
-will appear. Default settings enable all blacklisted calls to go to Lenny and local recordings are made. The user can disable
+will appear. Default settings redirect blacklisted callers to Lenny and local recordings are made. The user can disable
 the recording, change the URI that callers are directed to or disable the redirect and restore default Blacklist behavior. The 
-user must actively enable this module via the checkbox and also certify compliance with the receiving party's TOS.
+user must actively enable this module via the checkbox and also certify compliance with the receiving party's TOS. To direct
+blacklisted callers to an internal resource such as an announcement or voicemail, configure the destination as:
+`local/<digits>@from-internal`
