@@ -76,6 +76,7 @@ function lenny_hookGet_config($engine) {
 	}
 }
 
+/*** *** *** temporarily removing this function to debug *** ***
 function lenny_hook_blacklist() {
         $lenconfig = lenny_config();
 
@@ -98,6 +99,7 @@ function lenny_hook_blacklist() {
 
         return $html;
 }
+*** *** *** *** *** *** *** ***/
 		
 function lenny_vercheck() {
 	$newver = false;
