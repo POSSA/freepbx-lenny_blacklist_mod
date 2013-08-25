@@ -16,5 +16,5 @@ Under the "Other" tab (or directly on the Blacklist page with later versions of 
 will appear. Default settings redirect blacklisted callers to Lenny and local recordings are made. The user can disable
 the recording, change the URI that callers are directed to or disable the redirect and restore default Blacklist behavior. The 
 user must actively enable this module via the checkbox and also certify compliance with the receiving party's TOS. To direct
-blacklisted callers to an internal resource such as an announcement or voicemail, configure the destination as:
-`local/<digits>@from-internal`
+blacklisted callers to any dialable number such as to an announcement or voicemail, configure the destination as:
+`local/3456@from-internal` where the digits 3456 represent the destination for blacklisted callers.
