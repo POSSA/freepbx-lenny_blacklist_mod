@@ -9,7 +9,7 @@
 		<lenny>Lenny Blacklist Mod</lenny>
 	</menuitems>
 	<changelog>
-		*0.0.7*  Fix bug in dialplan splice
+		*0.0.7*  Fix bug in dialplan splice, now requires 2.11
 		*0.0.6*  Remove Blacklist html hook for debug
 		*0.0.5*  Updated to use html hook in Blacklist module
 		*0.0.4*  Typos and note about respecing TOS
@@ -18,7 +18,7 @@
 		*0.0.1*  First release
 		</changelog>
 	<depends>
-		<version>ge 2.10</version>
+		<version>ge 2.11</version>
 		<module>blacklist</module>
 	</depends>
 </module>
