@@ -1,7 +1,7 @@
 <module>
 	<rawname>lenny</rawname>
 	<name>Lenny Blacklist Mod</name>
-	<version>0.0.6</version>
+	<version>0.0.7</version>
 	<publisher>POSSA</publisher>
 	<license>GPLv2+</license>
 	<category>Other</category>
@@ -9,6 +9,7 @@
 		<lenny>Lenny Blacklist Mod</lenny>
 	</menuitems>
 	<changelog>
+		*0.0.7*  Fix bug in dialplan splice
 		*0.0.6*  Remove Blacklist html hook for debug
 		*0.0.5*  Updated to use html hook in Blacklist module
 		*0.0.4*  Typos and note about respecing TOS
