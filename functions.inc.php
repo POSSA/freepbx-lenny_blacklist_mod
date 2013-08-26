@@ -62,14 +62,14 @@ function lenny_hookGet_config($engine) {
 
 			if ($config[0]['enable']=='CHECKED' && $config[0]['record']=='CHECKED')
 			{
-				$ext->splice($context, $exten, 4, new ext_gosub('1', 's', 'sub-record-check', 'rg,s,always'));
-				$ext->splice($context, $exten, 5, new ext_dial($config[0]['destination'],'60,rL,240000'));
-				$ext->splice($context, $exten, 6, new ext_hangup);
+				$ext->splice($context, $exten, "blacklisted", new ext_gosub('1', 's', 'sub-record-check', 'rg,s,always'),"",1);
+				$ext->splice($context, $exten, "blacklisted", new ext_dial($config[0]['destination'],'60,rL,240000'),"",2);
+				$ext->splice($context, $exten, "blacklisted", new ext_hangup,"",3);
 			}
 			else if ($config[0]['enable']=='CHECKED')
 			{
-				$ext->splice($context, $exten, 4, new ext_dial($config[0]['destination'],'60,rL,240000'));
-				$ext->splice($context, $exten, 5, new ext_hangup);
+				$ext->splice($context, $exten, "blacklisted", new ext_dial($config[0]['destination'],'60,rL,240000'),"",1);
+				$ext->splice($context, $exten, "blacklisted", new ext_hangup,"",2);
 			}
 			
 		break;
