@@ -60,23 +60,47 @@ function lenny_hookGet_config($engine) {
 			$context = "app-blacklist-check";
 			$exten = "s";
 
-			if ($config[0]['enable']=='CHECKED' && $config[0]['record']=='CHECKED')
-			{
-				$ext->splice($context, $exten, "blacklisted", new ext_gosub('1', 's', 'sub-record-check', 'rg,s,always'),"",1);
-				$ext->splice($context, $exten, "blacklisted", new ext_dial($config[0]['destination'],'60,rL,240000'),"",2);
-				$ext->splice($context, $exten, "blacklisted", new ext_hangup,"",3);
+			// need different dial plan for FreePBX versions lower than 2.11
+			$foo = version_compare (getversion(),"2.11.0");
+			if ( $foo != -1) {
+				// this is for ver 2.11+
+				if ($config[0]['enable']=='CHECKED' && $config[0]['record']=='CHECKED') {
+					$ext->splice($context, $exten, "blacklisted", new ext_gosub('1', 's', 'sub-record-check', 'rg,s,always'),"",1);
+					$ext->splice($context, $exten, "blacklisted", new ext_dial($config[0]['destination'],'60,rL,240000'),"",2);
+					$ext->splice($context, $exten, "blacklisted", new ext_hangup,"",3);
+				}
+				else if ($config[0]['enable']=='CHECKED') {
+					$ext->splice($context, $exten, "blacklisted", new ext_dial($config[0]['destination'],'60,rL,240000'),"",1);
+					$ext->splice($context, $exten, "blacklisted", new ext_hangup,"",2);
+				}
 			}
-			else if ($config[0]['enable']=='CHECKED')
-			{
-				$ext->splice($context, $exten, "blacklisted", new ext_dial($config[0]['destination'],'60,rL,240000'),"",1);
-				$ext->splice($context, $exten, "blacklisted", new ext_hangup,"",2);
+			else {
+				// for FreePBX versions < 2.11 splice function does not receive the offset variable so must test for both 
+				// conditions of "enable block anonymous calls" and splice lenny dial plan in different place for each case.
+//				$bar = $astman->database_get("blacklist","blocked") ;              // this line crashes FreePBX reload every time, why?
+//				if ($bar == 1) {
+//					$splice_position = 8;
+//				}
+//				else {
+					$splice_position = 4;
+//				}
+				
+				if ($config[0]['enable']=='CHECKED' && $config[0]['record']=='CHECKED') {
+					$ext->splice($context, $exten, $splice_position, new ext_gosub('1', 's', 'sub-record-check', 'rg,s,always'));
+					$ext->splice($context, $exten, ($splice_position+1), new ext_dial($config[0]['destination'],'60,rL,240000'));
+					$ext->splice($context, $exten, ($splice_position+2), new ext_hangup);
+				}
+				else if ($config[0]['enable']=='CHECKED') {
+					$ext->splice($context, $exten, $splice_position, new ext_dial($config[0]['destination'],'60,rL,240000'));
+					$ext->splice($context, $exten, ($splice_position+1), new ext_hangup);
+				}
+
 			}
-			
 		break;
 	}
 }
 
-/*** *** *** temporarily removing this function to debug *** ***
+/*** *** *** reports of this code not working properly in FreePBX 2.10 *** ***
 function lenny_hook_blacklist() {
         $lenconfig = lenny_config();
 
