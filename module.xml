@@ -1,7 +1,7 @@
 <module>
 	<rawname>lenny</rawname>
 	<name>Lenny Blacklist Mod</name>
-	<version>0.0.7</version>
+	<version>0.0.8</version>
 	<publisher>POSSA</publisher>
 	<license>GPLv2+</license>
 	<category>Other</category>
@@ -9,6 +9,7 @@
 		<lenny>Lenny Blacklist Mod</lenny>
 	</menuitems>
 	<changelog>
+		*0.0.8*  Restore pre 2.11 compatibility
 		*0.0.7*  Fix bug in dialplan splice, now requires 2.11
 		*0.0.6*  Remove Blacklist html hook for debug
 		*0.0.5*  Updated to use html hook in Blacklist module
@@ -18,7 +19,7 @@
 		*0.0.1*  First release
 		</changelog>
 	<depends>
-		<version>ge 2.11</version>
+		<version>ge 2.9</version>
 		<module>blacklist</module>
 	</depends>
 </module>
