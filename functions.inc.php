@@ -54,16 +54,17 @@ function lenny_hookGet_config($engine) {
 	// This generates the dialplan
 	global $ext;
 	global $asterisk_conf;
+	global $astman;
 	switch($engine) {
 		case "asterisk":
 			$config = lenny_config();
 			$context = "app-blacklist-check";
 			$exten = "s";
 
-			// need different dial plan for FreePBX versions lower than 2.11
+			// need to splice dial plan differently if FreePBX version is earlier than 2.11
 			$foo = version_compare (getversion(),"2.11.0");
 			if ( $foo != -1) {
-				// this is for ver 2.11+
+				// for FreePBX version 2.11 and higher
 				if ($config[0]['enable']=='CHECKED' && $config[0]['record']=='CHECKED') {
 					$ext->splice($context, $exten, "blacklisted", new ext_gosub('1', 's', 'sub-record-check', 'rg,s,always'),"",1);
 					$ext->splice($context, $exten, "blacklisted", new ext_dial($config[0]['destination'],'60,rL,240000'),"",2);
@@ -77,14 +78,13 @@ function lenny_hookGet_config($engine) {
 			else {
 				// for FreePBX versions < 2.11 splice function does not receive the offset variable so must test for both 
 				// conditions of "enable block anonymous calls" and splice lenny dial plan in different place for each case.
-//				$bar = $astman->database_get("blacklist","blocked") ;              // this line crashes FreePBX reload every time, why?
-//				if ($bar == 1) {
-//					$splice_position = 8;
-//				}
-//				else {
+				$bar = $astman->database_get("blacklist","blocked");
+				if ($bar == 1) {
+					$splice_position = 8;
+				}
+				else {
 					$splice_position = 4;
-//				}
-				
+				}
 				if ($config[0]['enable']=='CHECKED' && $config[0]['record']=='CHECKED') {
 					$ext->splice($context, $exten, $splice_position, new ext_gosub('1', 's', 'sub-record-check', 'rg,s,always'));
 					$ext->splice($context, $exten, ($splice_position+1), new ext_dial($config[0]['destination'],'60,rL,240000'));
